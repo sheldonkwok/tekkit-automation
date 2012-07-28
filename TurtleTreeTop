@@ -1,0 +1,22 @@
+--Functions
+function firePiston()
+	rs.setOutput("top", true)
+	sleep(1)
+	rs.setOutput("top",false)
+end
+
+--Program
+rednet.open("right")
+while true do
+	senderId, message, distance = rednet.receive()
+	if message == "one" then
+		while not turtle.detect() do
+			turtle.place()
+		end
+		firePiston()
+	end
+	
+	turtle.place()
+	firePiston()
+	rednet.send(senderID, message)
+end
